@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rays as Pixels — Supplementary Materials</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <style>
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background: #fff;
+      color: #2d2d2d;
+    }
+
+    /* ---- Header ---- */
+    .page-header {
+      padding: 2.5rem 1.5rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .page-header h1 {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .page-header p {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 0.3rem;
+    }
+
+    /* ---- Nav ---- */
+    .page-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0.8rem 1rem;
+      background: #fafafa;
+      border-bottom: 1px solid #e8e8e8;
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.9rem;
+    }
+    .page-nav a { color: #1a73e8; text-decoration: none; }
+    .page-nav a:hover { text-decoration: underline; }
+
+    /* ---- Sections ---- */
+    .content-section {
+      padding: 2.5rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .content-section + .content-section {
+      border-top: 1px solid #ebebeb;
+    }
+
+    .fig-title {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+    }
+
+    /* ---- Ablation Table ---- */
+    .ablation-table {
+      border-collapse: collapse;
+      margin: 0 auto;
+      font-size: 0.93rem;
+    }
+    .ablation-table thead tr { background: #f5f5f5; }
+    .ablation-table th {
+      font-family: 'Google Sans', sans-serif;
+      font-weight: 600;
+      padding: 10px 20px;
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+      color: #333;
+      white-space: nowrap;
+    }
+    .ablation-table th.method-col { text-align: left; }
+    .ablation-table td {
+      padding: 9px 20px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    .ablation-table td.method-col {
+      text-align: left;
+      font-family: 'Google Sans', sans-serif;
+    }
+    .ablation-table tr.best-row td {
+      font-weight: 700;
+      color: #1a73e8;
+    }
+    .ablation-table tbody tr:last-child td { border-bottom: none; }
+
+    .fig-caption {
+      font-size: 0.82rem;
+      color: #888;
+      text-align: center;
+      margin-top: 0.7rem;
+    }
+
+    /* ---- Scene Card ---- */
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .scene-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .scene-grid { grid-template-columns: 1fr; }
+    }
+
+    .scene-card {
+      background: #f7f7f7;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+
+    /* 3 input images row */
+    .input-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: #ddd;
+    }
+    .input-images img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .input-images-label {
+      font-size: 0.72rem;
+      color: #888;
+      text-align: center;
+      padding: 3px 0;
+      background: #f0f0f0;
+      letter-spacing: 0.03em;
+    }
+
+    /* video */
+    .scene-card video {
+      width: 100%;
+      display: block;
+      background: #000;
+    }
+
+    .scene-card-caption {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.82rem;
+      color: #555;
+      text-align: center;
+      padding: 7px 10px;
+      background: #f0f0f0;
+    }
+
+    /* ---- Comparison (Kaleido) ---- */
+    .comparison-scene { margin-bottom: 2rem; }
+    .comparison-scene-label {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .comparison-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+    @media (max-width: 500px) {
+      .comparison-pair { grid-template-columns: 1fr; }
+    }
+    .method-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: 'Google Sans', sans-serif;
+    }
+    .tag-ours { background: #1a73e8; color: #fff; }
+    .tag-baseline { background: #555; color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<div class="page-header">
+  <h1>Rays as Pixels — Supplementary Materials</h1>
+  <p>Anonymous Submission</p>
+</div>
+
+<nav class="page-nav">
+  <a href="#table1">Table 1</a>
+  <a href="#videos-ablation">Videos: Ablation</a>
+</nav>
+
+<!-- ========== TABLE 1: ABLATION ========== -->
+<div class="content-section" id="table1">
+  <div class="fig-title">Ablation Study : Ours · w/o Decoupled Self-Cross Attn. · w/o Cosine Similarity Loss · Plücker Embedding</div>
+  <div style="overflow-x:auto;">
+    <table class="ablation-table">
+      <thead>
+        <tr>
+          <th class="method-col">Method</th>
+          <th>FID ↓</th>
+          <th>FVD ↓</th>
+          <th>R<sub>err</sub> ↓</th>
+          <th>T<sub>err</sub> ↓</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="best-row">
+          <td class="method-col">Ours (Full Model)</td>
+          <td>7.33</td>
+          <td>68.17</td>
+          <td>0.020</td>
+          <td>0.018</td>
+        </tr>
+        <tr>
+          <td class="method-col">w/o Decoupled Self-Cross Attention</td>
+          <td>8.69</td>
+          <td>77.08</td>
+          <td>0.048</td>
+          <td>0.052</td>
+        </tr>
+        <tr>
+          <td class="method-col">w/o Cosine Similarity Loss</td>
+          <td>9.48</td>
+          <td>97.84</td>
+          <td>0.058</td>
+          <td>0.094</td>
+        </tr>
+        <tr>
+          <td class="method-col">Plücker Embedding</td>
+          <td>21.97</td>
+          <td>333.56</td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fig-caption">FID / FVD: visual quality &nbsp;·&nbsp; R<sub>err</sub> / T<sub>err</sub>: trajectory adherence &nbsp;·&nbsp; ↓ lower is better &nbsp;·&nbsp; Best results in <span style="color:#1a73e8;font-weight:700;">blue</span></p>
+</div>
+
+<!-- ========== VIDEOS: ABLATION ========== -->
+<div class="content-section" id="videos-ablation" style="background:#fafafa;">
+  <div class="fig-title">Qualitative Examples of Ablation Study</div>
+
+  <div class="scene-grid">
+
+    <!-- Scene 1 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/ablation_study_with_plucker/1ba74c22670ad047981441581d00f26f4a148d1010bcac7468c615adf5fa4d5d_set_8.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 2 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/ablation_study_with_plucker/3b7529dcccf7097cba31a989536035595e214b0f3775867fd3a62eb186870090_set_0.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 3 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/ablation_study_with_plucker/4ff8650b5c1140e98d957fbd1abbe2cfbbb416b37cb9f06f7f376956703801bb_set_9.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 4 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/ablation_study_with_plucker/374ffd0c5ff8e544f588f1da3ce0d5b69dc39ff3af95d7ccec480fe5e533c45e_set_5.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 5 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/ablation_study_with_plucker/9641a1ed7963ce5ca734cff3e6ccea3dfa8bcb0b0a3ff78f65d32a080de2d71e_set_6.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 6 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/ablation_study_with_plucker/b92b499c9bf92327d5f3a44c9db49bde3400dcb1cfec48d6488831e2b304d0bb_set_12.mp4" type="video/mp4">
+      </video>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ========== VIDEOS: KALEIDO COMPARISON ========== -->
+<div class="content-section" id="videos-kaleido" style="background:#fafafa;">
+  <div class="fig-title">Large Viewpoint Changes (DL3DV-140) : comparison with Kaleido</div>
+
+  <div class="scene-grid">
+
+    <!-- Scene 1 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/comparison_with_kaleido/clip_0022_2.0_0.0_24_tag1024_medium_v3_seed_12345-9818.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 2 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/comparison_with_kaleido/clip_0036_2.0_0.0_24_tag1024_medium_v3_seed_12345-9822.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 3 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/comparison_with_kaleido/clip_0050_2.0_0.0_24_tag1024_medium_v3_seed_12345.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 4 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/comparison_with_kaleido/clip_0057_2.0_0.0_24_tag1024_medium_v3_seed_12345-9826.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 5 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/comparison_with_kaleido/clip_0074_2.0_0.0_24_tag1024_medium_v3_seed_12345-9830.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Scene 6 -->
+    <div class="scene-card">
+      <video controls loop muted playsinline>
+        <source src="ablation_videos/comparison_with_kaleido/clip_0119_2.0_0.0_24_tag1024_medium_v3_seed_12345-9834.mp4" type="video/mp4">
+      </video>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer style="padding:1.5rem; text-align:center; background:#f5f5f5; border-top:1px solid #e8e8e8;">
+  <p style="color:#aaa; font-size:0.8rem;">Anonymous submission · Double-blind review</p>
+</footer>
+
+</body>
+</html>
