@@ -63,6 +63,7 @@
       font-weight: 600;
       color: #1a1a1a;
       margin-bottom: 1rem;
+      text-align: center;
     }
 
     /* ---- Ablation Table ---- */
@@ -107,14 +108,11 @@
     /* ---- Scene Card ---- */
     .scene-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
       margin-bottom: 1rem;
     }
 
-    @media (max-width: 768px) {
-      .scene-grid { grid-template-columns: repeat(2, 1fr); }
-    }
     @media (max-width: 480px) {
       .scene-grid { grid-template-columns: 1fr; }
     }
@@ -211,7 +209,7 @@
 
 <!-- ========== TABLE 1: ABLATION ========== -->
 <div class="content-section" id="table1">
-  <div class="fig-title">Ablation Study : Ours · w/o Decoupled Self-Cross Attn. · w/o Cosine Similarity Loss · Plücker Embedding</div>
+  <div class="fig-title">Ablation Study via Self-Consistency Test: Predict Poses → Generate Novel Views with Predicted Poses</div>
   <div style="overflow-x:auto;">
     <table class="ablation-table">
       <thead>
@@ -225,7 +223,7 @@
       </thead>
       <tbody>
         <tr class="best-row">
-          <td class="method-col">Ours (Full Model)</td>
+          <td class="method-col">Ours </td>
           <td>7.33</td>
           <td>68.17</td>
           <td>0.020</td>
@@ -312,7 +310,7 @@
 
 <!-- ========== VIDEOS: KALEIDO COMPARISON ========== -->
 <div class="content-section" id="videos-kaleido" style="background:#fafafa;">
-  <div class="fig-title">Large Viewpoint Changes (DL3DV-140) : comparison with Kaleido</div>
+  <div class="fig-title"> Large Viewpoint Change Generations from Single Images (DL3DV-140)  : Comparison with Kaleido</div>
 
   <div class="scene-grid">
 
